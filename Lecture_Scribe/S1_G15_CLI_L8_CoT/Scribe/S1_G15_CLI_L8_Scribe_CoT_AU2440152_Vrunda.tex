@@ -1,0 +1,290 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\begin{document}
+
+\section*{CSE 400: Fundamentals of Probability in Computing}
+
+\subsection*{Lecture 8 – Continuous Random Variables and Gaussian Random Variable}
+
+\hrule
+\vspace{1em}
+
+\section*{1. Continuous Random Variable (CRV)}
+
+\subsection*{Definition}
+
+A random variable (X) is a \textbf{continuous random variable} if it is characterized by a \textbf{probability density function (PDF)} $(f_X(x))$.
+
+\subsection*{Properties of PDF}
+
+\begin{itemize}
+    \item $(f_X(x) \ge 0)$ for all $(x)$
+    \item
+\end{itemize}
+
+\[
+\int_{-\infty}^{\infty} f_X(x),dx = 1
+\]
+
+\subsection*{Probability from PDF}
+
+For any interval $([x_1, x_2])$:
+\[
+P(x_1 \le X \le x_2) = \int_{x_1}^{x_2} f_X(x),dx
+\]
+
+\hrule
+\vspace{1em}
+
+\section*{2. Cumulative Distribution Function (CDF)}
+
+\subsection*{Definition}
+
+The \textbf{CDF} of a continuous random variable (X) is defined as:
+\[
+F_X(x) = P(X \le x) = \int_{-\infty}^{x} f_X(t),dt
+\]
+
+\subsection*{Interval Probability Using CDF}
+
+\[
+P(x_1 \le X \le x_2) = F_X(x_2) - F_X(x_1)
+\]
+
+\hrule
+\vspace{1em}
+
+\section*{3. Expectation of a Continuous Random Variable}
+
+\subsection*{Expectation of a Function of X}
+
+For a function $(g(X))$:
+\[
+E[g(X)] = \int_{-\infty}^{\infty} g(x) f_X(x),dx
+\]
+
+\subsection*{Mean (Expected Value)}
+
+\[
+\mu_X = E[X] = \int_{-\infty}^{\infty} x f_X(x),dx
+\]
+
+\hrule
+\vspace{1em}
+
+\section*{4. Moments of a Random Variable}
+
+\subsection*{n-th Order Moment (About the Origin)}
+
+\[
+E[X^n]
+\]
+
+Special cases:
+
+\begin{itemize}
+    \item $(n = 0)$: $(E[X^0] = E[1] = 1)$
+    \item $(n = 1)$: $(E[X] = \mu_X)$
+    \item $(n = 2)$: $(E[X^2])$
+\end{itemize}
+
+\hrule
+\vspace{1em}
+
+\section*{5. Central Moments}
+
+\subsection*{Definition}
+
+The \textbf{n-th order central moment} is defined as:
+\[
+E[(X - \mu_X)^n]
+\]
+
+\subsection*{Special Cases}
+
+\begin{itemize}
+    \item $(n = 0)$:
+    \[
+    E[(X - \mu_X)^0] = E[1] = 1
+    \]
+
+    \item $(n = 1)$:
+    \[
+    E[(X - \mu_X)] = E[X] - \mu_X = 0
+    \]
+
+    \item $(n = 2)$: Variance
+\end{itemize}
+
+\hrule
+\vspace{1em}
+
+\section*{6. Variance}
+
+\subsection*{Definition}
+
+\[
+\sigma_X^2 = E[(X - \mu_X)^2]
+\]
+
+\subsection*{Derivation}
+
+\[
+E[(X - \mu_X)^2]
+= E[X^2 - 2\mu_X X + \mu_X^2]
+\]
+
+Using linearity of expectation:
+\[
+= E[X^2] - 2\mu_X E[X] + \mu_X^2
+\]
+
+Since $(E[X] = \mu_X)$:
+\[
+\sigma_X^2 = E[X^2] - \mu_X^2
+\]
+
+\hrule
+\vspace{1em}
+
+\section*{7. Moments vs Central Moments}
+
+\begin{itemize}
+    \item Moments: $(E[X^n])$
+    \item Central Moments: $(E[(X - \mu_X)^n])$
+\end{itemize}
+
+Key distinction:
+\[
+E[X]^2 \neq E[X^2]
+\]
+
+\hrule
+\vspace{1em}
+
+\section*{8. Skewness}
+
+\subsection*{Definition (3rd Central Moment)}
+
+\[
+C_s = \frac{E[(X - \mu_X)^3]}{\sigma_X^3}
+\]
+
+\subsection*{Interpretation}
+
+\begin{itemize}
+    \item $(C_s > 0)$: Right-skewed PDF
+    \item $(C_s < 0)$: Left-skewed PDF
+\end{itemize}
+
+\hrule
+\vspace{1em}
+
+\section*{9. Kurtosis}
+
+\subsection*{Definition (4th Central Moment)}
+
+\[
+C_k = E[(X - \mu_X)^4]
+\]
+
+\subsection*{Observation}
+
+\begin{itemize}
+    \item Large kurtosis indicates a large peak near the mean
+\end{itemize}
+
+\hrule
+\vspace{1em}
+
+\section*{10. Linearity of Expectation}
+
+\subsection*{Theorem}
+
+For constants $(a)$ and $(b)$:
+\[
+E[aX + b] = aE[X] + b
+\]
+
+\subsection*{Extension}
+
+If $(g(x) = g_1(x) + g_2(x) + \cdots + g_n(x))$, then:
+\[
+E[g(X)] = E[g_1(X)] + E[g_2(X)] + \cdots + E[g_n(X)]
+\]
+
+\hrule
+\vspace{1em}
+
+\section*{11. Gaussian (Normal) Random Variable}
+
+\subsection*{Definition}
+
+A random variable (X) is Gaussian if:
+\[
+X \sim \mathcal{N}(\mu_X, \sigma_X^2)
+\]
+
+\subsection*{Probability Density Function}
+
+\[
+f_X(x) = \frac{1}{\sqrt{2\pi},\sigma_X}
+\exp\left(-\frac{(x - \mu_X)^2}{2\sigma_X^2}\right)
+\]
+
+\hrule
+\vspace{1em}
+
+\section*{12. Standard Normal Distribution}
+
+\subsection*{Definition}
+
+If:
+\[
+\mu_X = 0, \quad \sigma_X^2 = 1
+\]
+
+Then (X) follows the \textbf{standard normal distribution}.
+
+\hrule
+\vspace{1em}
+
+\section*{13. Symmetry of Gaussian Distribution}
+
+\begin{itemize}
+    \item PDF is symmetric about $(x = \mu_X)$
+    \item Left and right areas around the mean are equal
+\end{itemize}
+
+\hrule
+\vspace{1em}
+
+\section*{14. Worked Probability Example (from Lecture)}
+
+Given:
+\[
+|X + 3| < 2
+\]
+
+Step-by-step:
+\[
+-2 < X + 3 < 2
+\]
+\[
+-5 < X < -1
+\]
+
+Probability:
+\[
+P(-5 < X < -1) = F_X(-1) - F_X(-5)
+\]
+
+\hrule
+\vspace{1em}
+
+\section*{End of Lecture 8 Scribe}
+
+\end{document}
