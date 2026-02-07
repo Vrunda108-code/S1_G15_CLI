@@ -1,0 +1,289 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{CSE400 --- Probability Theory Lecture Scribe (Slides 1--28)}
+\author{Instructor: Dhaval Patel, PhD}
+\date{January 15, 2026}
+
+\begin{document}
+\maketitle
+
+\section{Motivation and Engineering Applications}
+
+\subsection*{Why Learn CSE400?}
+
+Applications include:
+\begin{itemize}
+\item Daily life conversations
+\item Speech Recognition
+\item Radar Systems
+\item Communication Networks
+\end{itemize}
+
+\subsection*{Speech Recognition System}
+
+Process:
+\begin{itemize}
+\item Speech input (example: ``Hello'')
+\item Matching with stored vocabulary/templates
+\item Output (example: ``Yes'', ``No'')
+\end{itemize}
+
+Multiple speakers have different templates. Signals such as $L(t)$ and $r(t)$ are matched to stored references.
+
+\subsection*{Radar System}
+
+Steps:
+\begin{itemize}
+\item Transmit signal
+\item Receive reflected signal
+\item Decide target presence or false alarm
+\end{itemize}
+
+\subsection*{Communication Network}
+
+Information propagates through connected nodes from a source.
+
+\section{Introduction to Probability Theory}
+
+\textbf{Definition (Experiment $E$):}
+
+A procedure that produces some result.
+
+Example: Tossing a coin five times $(E_5)$.
+
+\textbf{Definition (Outcome $\omega$):}
+
+A possible result of an experiment.
+
+Example:
+\[
+\omega = HHTHT
+\]
+
+\textbf{Definition (Event):}
+
+A set of outcomes.
+
+Example:
+\[
+C = \{\text{all outcomes with even number of heads}\}
+\]
+
+\textbf{Definition (Sample Space $S$):}
+
+The set of all possible distinct outcomes.
+
+Properties:
+\begin{itemize}
+\item Mutually exclusive
+\item Collectively exhaustive
+\end{itemize}
+
+Types of sample space:
+\begin{itemize}
+\item Discrete
+\item Countably infinite
+\item Continuous
+\end{itemize}
+
+Examples:
+\begin{itemize}
+\item Single coin flip
+\item Roll of die
+\item Two dice
+\item Flip until tails
+\item Random number in $[0,1)$
+\end{itemize}
+
+\section{Probability and Axioms}
+
+\textbf{Definition (Probability):}
+
+A numerical measure of likelihood of an event.
+
+\textbf{Axiom 1}
+\[
+0 \le Pr(A) \le 1
+\]
+
+\textbf{Axiom 2}
+\[
+Pr(S)=1
+\]
+
+\textbf{Axiom 3 (Additivity)}
+
+If $A\cap B=\emptyset$:
+\[
+Pr(A\cup B)=Pr(A)+Pr(B)
+\]
+
+For infinite sets:
+\[
+Pr\left(\bigcup_{i=1}^{\infty}A_i\right)=\sum_{i=1}^{\infty}Pr(A_i)
+\]
+
+\textbf{Corollary (Finite Case)}
+
+For mutually exclusive $A_1,\ldots,A_M$:
+\[
+Pr\left(\bigcup_{i=1}^{M}A_i\right)=\sum_{i=1}^{M}Pr(A_i)
+\]
+
+\section{Assigning Probability}
+
+\textbf{Classical Approach}
+\[
+Pr(A)=\frac{n(A)}{N}
+\]
+
+\textbf{Relative Frequency Approach}
+\[
+Pr(A)=\lim_{N\to\infty}\frac{n(A)}{N}
+\]
+
+\section{Joint Probability}
+
+\textbf{Definition}
+\[
+Pr(A\cap B)
+\]
+
+Probability that both $A$ and $B$ occur.
+
+\subsection*{Example 1 --- Card Deck}
+
+Let:
+\[
+A=\text{heart}, \quad B=\text{king}
+\]
+
+Only King of Hearts satisfies both:
+\[
+Pr(A\cap B)=\frac{1}{52}
+\]
+
+\subsection*{Example 2 --- Costume Party}
+
+Given:
+\[
+Pr(A)=0.6,\quad Pr(B)=0.3,\quad Pr(A\cap B)=0.2
+\]
+
+Joint probability:
+\[
+0.20
+\]
+
+\section{Conditional Probability}
+
+For $Pr(B)>0$:
+\[
+Pr(A|B)=\frac{Pr(A\cap B)}{Pr(B)}
+\]
+
+\section{Product Rule}
+
+Two events:
+\[
+Pr(A\cap B)=Pr(B)Pr(A|B)
+\]
+
+Three events:
+\[
+Pr(A\cap B\cap C)=Pr(A)Pr(B|A)Pr(C|A\cap B)
+\]
+
+General form:
+\[
+Pr(A_1\cap\cdots\cap A_n)=Pr(A_1)Pr(A_2|A_1)\cdots Pr(A_n|A_1\cap\cdots\cap A_{n-1})
+\]
+
+\section{Worked Examples}
+
+\subsection*{Example 3 --- Cards Without Replacement}
+
+Two cards drawn.
+
+Let $A$: first Ace, $B$: second Ace.
+
+Step 1:
+\[
+Pr(A)=\frac{4}{52}
+\]
+
+Step 2:
+\[
+Pr(B|A)=\frac{3}{51}
+\]
+
+Step 3:
+\[
+Pr(A\cap B)=\frac{4}{52}\cdot\frac{3}{51}
+\]
+
+\subsection*{Example 4 --- Poker (Exactly One Pair)}
+
+\[
+Pr=\frac{\binom{13}{1}\binom{4}{2}\binom{12}{3}\binom{4}{1}^3}{\binom{52}{5}}
+\]
+
+\subsection*{Example 5 --- Missing Key}
+
+10 keys, one correct.
+
+Probability correct key is on $k$-th try:
+\[
+Pr=\frac{1}{10}
+\]
+
+\section{Independence}
+
+\textbf{Definition}
+\[
+Pr(A\cap B)=Pr(A)Pr(B)
+\]
+
+\textbf{Conditional Independence}
+\[
+Pr(A\cap B|C)=Pr(A|C)Pr(B|C)
+\]
+
+\section{Bayes' Rule}
+
+\[
+Pr(A|B)=\frac{Pr(B|A)Pr(A)}{Pr(B)}
+\]
+
+\section{Law of Total Probability}
+
+If $A_1,\ldots,A_n$ partition the sample space:
+\[
+Pr(B)=\sum_{i=1}^{n}Pr(B|A_i)Pr(A_i)
+\]
+
+\textbf{Bayes with Total Probability}
+\[
+Pr(A_i|B)=\frac{Pr(B|A_i)Pr(A_i)}{\sum_{j=1}^{n}Pr(B|A_j)Pr(A_j)}
+\]
+
+\section{Final Summary}
+
+Topics covered:
+\begin{itemize}
+\item Sample space
+\item Events
+\item Probability axioms
+\item Joint probability
+\item Conditional probability
+\item Product rule
+\item Independence
+\item Bayes rule
+\item Total probability
+\item Worked examples
+\end{itemize}
+
+\end{document}
