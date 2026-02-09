@@ -1,0 +1,340 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\title{CSE400 --- Fundamentals of Probability in Computing\\
+Lecture 8 Scribe (Exam-Preparation Style)}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\noindent
+\textbf{Topic: Gaussian Random Variable (Definitions, Standard Forms, Q/$\Phi$ Relations, Worked Examples, and CDF-Based Moment Analysis)}
+
+\section{Gaussian Random Variable --- Definition and Properties}
+\subsection{Definition (Gaussian Random Variable)}
+A random variable $X$ is Gaussian if its PDF can be written in the general form:
+\[
+f_X(x)=\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{(x-m)^2}{2\sigma^2}\right)
+\]
+and it is denoted as:
+\[
+X\sim N(m,\sigma^2)
+\]
+This identifies:
+\begin{itemize}[leftmargin=2em]
+    \item $m$ as the mean parameter
+    \item $\sigma^2$ as the variance parameter
+\end{itemize}
+
+\section{Gaussian Random Variable --- Standard Forms}
+This lecture introduces standard integrals and special functions used to compute Gaussian probabilities.
+
+\subsection{Error Function and Complementary Error Function}
+\textbf{Definition: Error function}
+\[
+\mathrm{erf}(x)=\frac{2}{\sqrt{\pi}}\int_{0}^{x}\exp(-t^2)\,dt
+\]
+
+\textbf{Definition: Complementary error function}
+\[
+\mathrm{erfc}(x)=1-\mathrm{erf}(x)=\frac{2}{\sqrt{\pi}}\int_{x}^{\infty}\exp(-t^2)\,dt
+\]
+
+\subsection{$\Phi$-function and $Q$-function}
+\textbf{Definition: $\Phi$-function (CDF of Standard Normal)}
+\[
+\Phi(x)=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{x}\exp\left(-\frac{t^2}{2}\right)\,dt
+\]
+
+\textbf{Definition: $Q$-function (Gaussian Tail Function)}
+\[
+Q(x)=\frac{1}{\sqrt{2\pi}}\int_{x}^{\infty}\exp\left(-\frac{z^2}{2}\right)\,dz
+\]
+
+\textbf{Note (given in lecture)}
+\[
+Q(x)=1-\Phi(x)
+\]
+
+\section{Relation Between $\Phi$-function and $Q$-function}
+This section derives how to compute Gaussian CDFs and tail probabilities using $\Phi(\cdot)$ and $Q(\cdot)$.
+
+\subsection{Evaluating the CDF $F_X(x)$}
+For a Gaussian random variable $X\sim N(m,\sigma^2)$, the CDF is:
+\[
+F_X(x)=\int_{-\infty}^{x}\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{(y-m)^2}{2\sigma^2}\right)\,dy
+\]
+The lecture expresses the standardized form as evaluating the $\Phi$-function at the standardized point.
+
+\subsection{Evaluating Tail Probabilities}
+For tail probabilities:
+\[
+\Pr(X>x)=\int_{x}^{\infty}\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{(y-m)^2}{2\sigma^2}\right)\,dy
+\]
+
+\subsection{Key Identities (Given)}
+The lecture states the following key identities:
+\[
+Q(x)=1-\Phi(x)
+\]
+\[
+F_X(x)=1-Q\left(\frac{x-m}{\sigma}\right)
+\]
+
+\subsection{Lecture Guidance on When to Use Which Function}
+To evaluate the CDF of a Gaussian RV, evaluate the $\Phi$-function at the points.
+
+The $Q$-function is more natural for evaluating probabilities of the form $\Pr(X>x)$.
+
+\section{Worked Example --- Gaussian Probability Expressions Using Q-functions}
+\subsection{Problem Statement (Given)}
+A random variable $X$ has a PDF given by a Gaussian form. The lecture then asks:
+
+Find each of the following probabilities and express in terms of Q-functions:
+\begin{itemize}[leftmargin=2em]
+    \item $\Pr(X<0)$
+    \item $\Pr(X>4)$
+    \item $\Pr(|X+3|<2)$
+    \item $\Pr(|X-2|>1)$
+\end{itemize}
+
+Hint (given): Use $Q(x)$ for right-tail and $\Phi(x)$ for left-tail probabilities.
+
+\subsection{Step 1 --- Identify Parameters by Comparing with Gaussian PDF}
+The solution begins:
+
+Comparing with the Gaussian PDF we identify Gaussian relations:
+\[
+F_X(x)=\Phi\left(\frac{x-m}{\sigma}\right),\qquad
+\Pr(X>x)=Q\left(\frac{x-m}{\sigma}\right)
+\]
+
+\subsection{Step-by-Step Solution for Each Subpart}
+
+\subsubsection{(3) Compute $\Pr(|X+3|<2)$}
+The lecture explicitly shows:
+
+\noindent
+\textbf{Step 1.} Start with the inequality:
+\[
+|X+3|<2
+\]
+
+\noindent
+\textbf{Step 2.} Convert absolute value inequality to a double inequality:
+\[
+-2<X+3<2
+\]
+
+\noindent
+\textbf{Step 3.} Subtract 3 throughout:
+\[
+-5<X<-1
+\]
+
+\noindent
+\textbf{Step 4.} Convert interval probability to CDF form:
+\[
+\Pr(-5<X<-1)=F_X(-1)-F_X(-5)
+\]
+
+\noindent
+\textbf{Step 5.} Express in terms of $\Phi$:
+\[
+F_X(-1)-F_X(-5)=\Phi(1)-\Phi(-1)
+\]
+
+\noindent
+\textbf{Step 6.} Use the identity given in the solution:
+\[
+\Phi(-x)=1-\Phi(x)
+\]
+
+\noindent
+\textbf{Step 7.} Apply it:
+\[
+\Phi(1)-\Phi(-1)=\Phi(1)-(1-\Phi(1))=2\Phi(1)-1
+\]
+
+\noindent
+\textbf{Step 8.} Convert to Q-form using $Q(x)=1-\Phi(x)$:
+\[
+2\Phi(1)-1=1-2Q(1)
+\]
+
+\noindent
+\textbf{Final:}
+\[
+\Pr(|X+3|<2)=1-2Q(1)
+\]
+
+\subsubsection{(4) Compute $\Pr(|X-2|>1)$}
+The lecture explicitly shows:
+
+\noindent
+\textbf{Step 1.} Start:
+\[
+|X-2|>1
+\]
+
+\noindent
+\textbf{Step 2.} Convert to a union of inequalities:
+\[
+X<1 \quad \text{or}\quad X>3
+\]
+
+\noindent
+\textbf{Step 3.} Convert to probability:
+\[
+\Pr(|X-2|>1)=F_X(1)+\Pr(X>3)
+\]
+
+\noindent
+\textbf{Step 4.} Express using Q-function and CDF relation:
+\[
+F_X(1)=1-Q(2)
+\]
+and
+\[
+\Pr(X>3)=Q(3)
+\]
+
+\noindent
+\textbf{Step 5.} Combine:
+\[
+\Pr(|X-2|>1)=1-Q(2)+Q(3)
+\]
+
+\noindent
+\textbf{Final:}
+\[
+\Pr(|X-2|>1)=1-Q(2)+Q(3)
+\]
+
+\section{Gaussian Random Variable --- Application Examples}
+The lecture lists the following application examples:
+\begin{itemize}[leftmargin=2em]
+    \item Thermal noise voltage in an electronic circuit
+    \item Measurement error in a sensor reading:
+    \[
+    \text{Measured Value}=\text{True Value}+\text{Gaussian noise}
+    \]
+    \item Packet delay variation (jitter) in a communication network, where delays fluctuate around a mean value due to random congestion
+\end{itemize}
+
+\section{Exercise: Problem Solving 2 (CDF Analysis)}
+\subsection{Problem Statement (Given CDF)}
+The CDF of a random variable is:
+\[
+F_X(x)=
+\begin{cases}
+0, & x<0\\
+x^2, & 0<x<1\\
+1, & x>1
+\end{cases}
+\]
+Find:
+\begin{itemize}[leftmargin=2em]
+    \item Mean $(\mu_X)$
+    \item Variance $(\sigma^2)$
+    \item Skewness $(c_s)$
+    \item Kurtosis $(c_k)$
+\end{itemize}
+
+\subsection{Step-by-Step Solution (Exactly as Given)}
+\textbf{Step 1: Compute the PDF from the CDF}
+
+The lecture states:
+\[
+f_X(x)=\frac{d}{dx}F_X(x)=2x,\qquad 0<x<1
+\]
+
+\textbf{Step 2: Mean}
+
+The lecture indicates ``Mean:'' but the explicit algebra is not fully visible in the provided context snippet.
+
+\textbf{Step 3: Variance}
+
+The lecture provides the variance computation line in a condensed form:
+\[
+\sigma_X^2=\int_{0}^{1}x^2(2x)\,dx-\mu_X^2
+\]
+and gives the final simplified value:
+\[
+\sigma_X^2=\frac{1}{18}
+\]
+
+\textbf{Step 4: Skewness}
+
+The lecture provides:
+\[
+c_s=\frac{E(X-\mu)^3}{\sigma^3}=-\frac{2}{5}
+\]
+
+\textbf{Step 5: Kurtosis}
+
+The lecture provides:
+\[
+c_k=\frac{E(X-\mu)^4}{\sigma^4}=\frac{12}{5}
+\]
+
+\subsection{Conclusion (Given)}
+The lecture concludes:
+\begin{itemize}[leftmargin=2em]
+    \item Distribution is left-skewed
+    \item Platykurtic (lighter tails than Gaussian)
+\end{itemize}
+
+\section{Gaussian Modeling: From Noise to Math (Conceptual Notes)}
+\subsection{Motivation (Given)}
+The lecture states:
+\begin{itemize}[leftmargin=2em]
+    \item The world is noisy.
+    \item Sensors do not give ``flat'' lines (thermal noise, interference).
+    \item Repeated measurements form a ``cloud'' of uncertainty.
+\end{itemize}
+
+\subsection{Gaussian Simulation Model (Given)}
+The lecture models noise using:
+\[
+X\sim N(1,\sigma^2)
+\]
+and provides the generative formula:
+\[
+X=\sigma Z+1
+\]
+where $Z$ is ``standard randomness.''
+
+\section{Density Estimation: Learning from Data (Conceptual Notes)}
+The lecture states:
+\begin{itemize}[leftmargin=2em]
+    \item In real settings, we do not know $\mu$ or $\sigma$.
+    \item We observe raw noisy samples (histogram).
+    \item We use sample statistics to estimate the distribution.
+    \item Key concept: We estimate probability distributions, not deterministic functions; this smooths noise into a predictive tool.
+\end{itemize}
+
+\section{Applications: Network Systems (Packet Delay Modeling)}
+The lecture describes:
+\begin{itemize}[leftmargin=2em]
+    \item Case study: 500 ICMP pings (latency analysis).
+    \item Delay varies due to queuing, congestion, and routing hops.
+    \item Engineering goal: typical delay $\mu$ and jitter $\sigma$.
+\end{itemize}
+
+\section{Applications: Broader Computing Contexts (Given)}
+The lecture lists examples:
+\begin{itemize}[leftmargin=2em]
+    \item Image processing denoising (Gaussian priors)
+    \item Tail latency in distributed systems (99th percentile)
+    \item Sensor fusion (Kalman filters; GPS uncertainty)
+\end{itemize}
+
+\end{document}
