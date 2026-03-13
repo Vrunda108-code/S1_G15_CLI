@@ -1,0 +1,604 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,geometry}
+\geometry{margin=1in}
+
+\begin{document}
+
+\section*{CSE 400 – Fundamentals of Probability in Computing}
+
+\subsection*{Lecture 16 Scribe: Joint Random Variables and Joint Distributions}
+
+Based strictly on Lecture Slides by Dhaval Patel, PhD
+
+\bigskip
+
+\section*{1. Why Study Joint Random Variables?}
+
+In many real-world scenarios, we are interested in analyzing two or more random variables simultaneously instead of studying them independently. Joint analysis allows us to understand relationships, dependencies, and correlations between variables.
+
+Examples of pairs of variables often studied jointly:
+
+\begin{itemize}
+\item Height and weight of giraffes
+\item IQ and birthweight of children
+\item Frequency of exercise and rate of heart disease
+\item Air pollution level and respiratory illness rate
+\item Number of Facebook friends and age of members
+\end{itemize}
+
+These examples motivate the need for \textbf{joint random variables}.
+
+\bigskip
+
+\section*{2. Applications Motivating Joint Random Variables}
+
+\subsection*{Example 1: Smart Transportation}
+
+Two random variables are defined:
+
+\[
+X = \text{Vehicle Speed}
+\]
+
+\[
+Y = \text{Traffic Density}
+\]
+
+Question posed:
+
+Can speed be high when the traffic density is also high?
+
+Conclusion: The variables may be correlated.
+
+Applications in Intelligent Transportation Systems (ITS):
+
+\begin{itemize}
+\item Adaptive traffic signals
+\item Congestion prediction
+\item Autonomous vehicle routing
+\end{itemize}
+
+\bigskip
+
+\subsection*{Example 2: Wireless Network Performance}
+
+Two important random variables:
+
+\[
+X = \text{Signal-to-Noise Ratio (SNR)}
+\]
+
+\[
+Y = \text{Data Throughput}
+\]
+
+Observation:
+
+Throughput depends on SNR. Both values vary due to:
+
+\begin{itemize}
+\item Fading
+\item Interference
+\item Network congestion
+\end{itemize}
+
+Question:
+
+If SNR is high, will throughput always be high?
+
+Answer discussed: Not necessarily, because network congestion can affect throughput.
+
+Example probability table:
+
+\bigskip
+
+\begin{tabular}{|c|c|c|}
+\hline
+SNR Level & High Throughput & Low Throughput \\
+\hline
+High & 0.40 & 0.10 \\
+\hline
+Medium & 0.20 & 0.15 \\
+\hline
+Low & 0.05 & 0.10 \\
+\hline
+\end{tabular}
+
+\bigskip
+
+Applications:
+
+\begin{itemize}
+\item 5G scheduling
+\item Adaptive modulation
+\item Network planning
+\end{itemize}
+
+\bigskip
+
+\subsection*{Additional Examples}
+
+Example 3:
+
+\[
+X = \text{Rainfall}
+\]
+
+\[
+Y = \text{Temperature}
+\]
+
+Application: Weather forecasting
+
+Example 4:
+
+\[
+X = \text{Wind Speed}
+\]
+
+\[
+Y = \text{Delivery Time}
+\]
+
+Application: Drone delivery and logistics systems
+
+Example 5:
+
+Rolling two dice:
+
+\[
+X = \text{Outcome of the first die}
+\]
+
+\[
+Y = \text{Outcome of the second die}
+\]
+
+Example questions:
+
+\begin{itemize}
+\item $X + Y = 7$
+\item $X > Y$
+\end{itemize}
+
+These require the use of \textbf{joint probability distributions}.
+
+\bigskip
+
+\section*{3. Discrete Case – Joint PMF}
+
+For discrete random variables $X$ and $Y$, probabilities are assigned to ordered pairs $(x, y)$.
+
+The \textbf{joint probability mass function (PMF)} is defined as:
+
+\[
+p(x, y) = P(X = x, Y = y)
+\]
+
+The joint PMF describes the probability that $X$ takes value $x$ and $Y$ takes value $y$ simultaneously.
+
+\bigskip
+
+\section*{4. Joint PMF Table Representation}
+
+A common way to represent a joint PMF is using a \textbf{table}.
+
+Structure:
+
+\begin{itemize}
+\item Rows correspond to values of $X$
+\item Columns correspond to values of $Y$
+\item Each cell contains the probability $p(x, y)$
+\end{itemize}
+
+Properties of a joint PMF:
+
+\begin{enumerate}
+\item $p(x, y) \geq 0$ for all $x$ and $y$
+\item The sum of all probabilities equals 1
+\end{enumerate}
+
+Sum over all $x$ and $y$:
+
+\[
+\sum \sum p(x, y) = 1
+\]
+
+\bigskip
+
+\section*{5. Example: Rolling Two Dice}
+
+Define random variables:
+
+\[
+X = \text{value of the first die}
+\]
+
+\[
+Y = \text{value of the second die}
+\]
+
+Possible values:
+
+\[
+X \in \{1,2,3,4,5,6\}
+\]
+
+\[
+Y \in \{1,2,3,4,5,6\}
+\]
+
+Total possible ordered outcomes:
+
+\[
+36
+\]
+
+Each pair $(x, y)$ occurs with probability:
+
+\[
+P(X = x, Y = y) = \frac{1}{36}
+\]
+
+Example events:
+
+Event 1: $X + Y = 7$
+
+Possible pairs:
+
+\[
+(1,6)
+\]
+
+\[
+(2,5)
+\]
+
+\[
+(3,4)
+\]
+
+\[
+(4,3)
+\]
+
+\[
+(5,2)
+\]
+
+\[
+(6,1)
+\]
+
+Number of favorable outcomes = 6
+
+\[
+P(X + Y = 7) = 6 / 36 = 1/6
+\]
+
+Event 2: $X > Y$
+
+List of ordered pairs where $X$ is greater than $Y$:
+
+\[
+(2,1)
+\]
+
+\[
+(3,1)\ (3,2)
+\]
+
+\[
+(4,1)\ (4,2)\ (4,3)
+\]
+
+\[
+(5,1)\ (5,2)\ (5,3)\ (5,4)
+\]
+
+\[
+(6,1)\ (6,2)\ (6,3)\ (6,4)\ (6,5)
+\]
+
+Total favorable outcomes = 15
+
+\[
+P(X > Y) = 15 / 36 = 5 / 12
+\]
+
+\bigskip
+
+\section*{6. Continuous Case – Joint PDF}
+
+For continuous random variables $X$ and $Y$, the distribution is described by a \textbf{joint probability density function (PDF)}.
+
+Notation:
+
+\[
+f(x, y)
+\]
+
+Properties:
+
+\begin{enumerate}
+\item $f(x, y) \geq 0$
+\item Total probability must equal 1:
+\end{enumerate}
+
+\[
+\int\int f(x, y) \, dx \, dy = 1
+\]
+
+Probability over a region $R$ is computed as:
+
+\[
+P((X, Y) \in R) = \int\int_R f(x, y) \, dx \, dy
+\]
+
+This can be interpreted geometrically as the \textbf{volume under the surface $f(x,y)$} over the region $R$.
+
+\bigskip
+
+\section*{7. Worked Example (Continuous Joint PDF)}
+
+Given joint PDF:
+
+\[
+f(x, y) = 4xy
+\]
+
+for
+
+\[
+0 < x < 1
+\]
+
+\[
+0 < y < 1
+\]
+
+This defines a joint distribution over the \textbf{unit square}.
+
+Tasks:
+
+\begin{enumerate}
+\item Verify that $f(x,y)$ is a valid joint PDF.
+\item Visualize the event $A = \{X < 0.5, Y > 0.5\}$.
+\item Compute $P(A)$.
+\end{enumerate}
+
+\bigskip
+
+\section*{8. Example Solution}
+
+\subsection*{Step 1: Verify normalization}
+
+Compute the double integral over the support region.
+
+\[
+\int_{0}^{1} \int_{0}^{1} 4xy \, dx \, dy
+\]
+
+First integrate with respect to $x$:
+
+\[
+\int_{0}^{1} 4xy \, dx
+\]
+
+\[
+= 4y \int_{0}^{1} x \, dx
+\]
+
+\[
+= 4y \left[\frac{x^{2}}{2}\right]_{0}^{1}
+\]
+
+\[
+= 4y \left(\frac{1}{2}\right)
+\]
+
+\[
+= 2y
+\]
+
+Now integrate with respect to $y$:
+
+\[
+\int_{0}^{1} 2y \, dy
+\]
+
+\[
+= \left[y^{2}\right]_{0}^{1}
+\]
+
+\[
+= 1
+\]
+
+Thus the total probability equals 1, so the function is a valid joint PDF.
+
+\bigskip
+
+\subsection*{Step 2: Compute probability of event A}
+
+Event A:
+
+\[
+X < 0.5
+\]
+
+\[
+Y > 0.5
+\]
+
+Probability:
+
+\[
+P(A) = \int_{0}^{0.5} \int_{0.5}^{1} 4xy \, dy \, dx
+\]
+
+First integrate with respect to $y$:
+
+\[
+\int_{0.5}^{1} 4xy \, dy
+\]
+
+\[
+= 4x \int_{0.5}^{1} y \, dy
+\]
+
+\[
+= 4x \left[\frac{y^{2}}{2}\right]_{0.5}^{1}
+\]
+
+\[
+= 4x \left(\frac{1 - 0.25}{2}\right)
+\]
+
+\[
+= 4x \left(\frac{0.75}{2}\right)
+\]
+
+\[
+= 4x (0.375)
+\]
+
+\[
+= 1.5x
+\]
+
+Now integrate with respect to $x$:
+
+\[
+\int_{0}^{0.5} 1.5x \, dx
+\]
+
+\[
+= 1.5 \left[\frac{x^{2}}{2}\right]_{0}^{0.5}
+\]
+
+\[
+= 1.5 \left(\frac{0.25}{2}\right)
+\]
+
+\[
+= 1.5 (0.125)
+\]
+
+\[
+= 0.1875
+\]
+
+\[
+= 3 / 16
+\]
+
+Therefore:
+
+\[
+P(A) = 3/16
+\]
+
+\bigskip
+
+\section*{9. Joint Cumulative Distribution Function (Joint CDF)}
+
+Let $X$ and $Y$ be jointly distributed random variables.
+
+The \textbf{joint cumulative distribution function} is defined as:
+
+\[
+F(x, y) = P(X < x, Y < y)
+\]
+
+This represents the probability that $X$ is less than $x$ and $Y$ is less than $y$ simultaneously.
+
+\bigskip
+
+\section*{10. Joint CDF – Continuous Case}
+
+If $X$ and $Y$ are continuous with joint density $f(x,y)$, the joint CDF is obtained by integrating the joint PDF.
+
+\[
+F(x, y) = \int\int f(u, v) \, du \, dv
+\]
+
+The joint PDF can be recovered from the joint CDF using partial derivatives:
+
+\[
+f(x, y) = \frac{\partial^{2}F(x, y)}{\partial x \, \partial y}
+\]
+
+\bigskip
+
+\section*{11. Joint CDF – Discrete Case}
+
+If $X$ and $Y$ are discrete with joint PMF $p(x, y)$, the joint CDF is computed by summing probabilities.
+
+\[
+F(x, y) = P(X \leq x, Y \leq y)
+\]
+
+This is obtained by summing:
+
+\[
+p(x_i, y_j)
+\]
+
+for all pairs satisfying:
+
+\[
+x_i \leq x
+\]
+
+\[
+y_j \leq y
+\]
+
+\bigskip
+
+\section*{12. Properties of the Joint CDF}
+
+\begin{enumerate}
+\item The joint CDF is defined as:
+\end{enumerate}
+
+\[
+F(x, y) = P(X < x, Y < y)
+\]
+
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item Range:
+\end{enumerate}
+
+\[
+0 \leq F(x, y) \leq 1
+\]
+
+\begin{enumerate}
+\setcounter{enumi}{2}
+\item The function is non-decreasing in both variables.
+\item As $x$ and $y$ approach their maximum possible values, $F(x,y)$ approaches 1.
+\item As $x$ and $y$ approach their minimum possible values, $F(x,y)$ approaches 0.
+\end{enumerate}
+
+\bigskip
+
+\section*{End of Lecture 16}
+
+Topics covered:
+
+\begin{itemize}
+\item Motivation for joint random variables
+\item Joint PMF for discrete random variables
+\item Table representation of joint distributions
+\item Example with rolling two dice
+\item Joint PDF for continuous random variables
+\item Worked example using density $f(x,y)=4xy$
+\item Joint cumulative distribution function
+\item Continuous and discrete forms of joint CDF
+\item Properties of the joint CDF
+\end{itemize}
+
+\end{document}
